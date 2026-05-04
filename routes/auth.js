@@ -5,8 +5,7 @@ const jwt = require('jsonwebtoken');
 const pool = require('../config/db');
 require('dotenv').config();
 
-// ─── REGISTER ─────────────────────────────────────────
-// POST /api/auth/register
+
 router.post('/register', async (req, res) => {
   try {
     const { username, email, password, role } = req.body;
