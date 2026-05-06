@@ -79,8 +79,7 @@ router.post('/login', async (req, res) => {
       [email]
     );
 
-    // If no user found, return generic error
-    // (don't say "email not found" — that helps hackers)
+
     if (users.length === 0) {
       return res.status(401).json({
         success: false,
@@ -90,7 +89,7 @@ router.post('/login', async (req, res) => {
 
     const user = users[0];
 
-    // Compare entered password with hashed password in DB
+  
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).json({
@@ -99,8 +98,6 @@ router.post('/login', async (req, res) => {
       });
     }
 
-    // Create JWT token — contains user id, username, role
-    // This gets sent back to the user and used in future requests
     const token = jwt.sign(
       { id: user.id, username: user.username, role: user.role },
       process.env.JWT_SECRET,
@@ -110,7 +107,7 @@ router.post('/login', async (req, res) => {
     res.json({
       success: true,
       message: 'Login successful.',
-      token, // user must save this and send it with future requests
+      token, 
       user: {
         id: user.id,
         username: user.username,
